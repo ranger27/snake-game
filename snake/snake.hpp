@@ -31,14 +31,17 @@ namespace snake
             LEFT,
             RIGHT
         };
-        Direction direction;
+        Direction currDirection;
+        //FIXME: may be delete this or use it
+        Direction prevDirection;
 
     public:
         Snake(const int &windowWidth, const int &windowHeight);
-        Direction getDirection() const;
-        void setDirection(sf::Keyboard::Key key);
+        Direction getCurrentDirection() const;
+        void setCurrentDirection(sf::Keyboard::Key key);
         bool makeInitialSnake();
         void renderSnake(sf::RenderWindow & window);
+        void moveSnake();
     };
     
 }

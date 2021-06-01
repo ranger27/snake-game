@@ -7,32 +7,42 @@ const int Snake::maxLength = 100;
 Snake::Snake(const int &windowWidth, const int &windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
     //FIXME: set length to 2 maybe at start.
-    length = 5;
+    length = 2;
     eachPart = new sf::RectangleShape[Snake::maxLength];
     head = eachPart;
-    direction = RIGHT;
+    currDirection = RIGHT;
+    // prevDirection = RIGHT;
 }
 
-Snake::Direction Snake::getDirection() const
+Snake::Direction Snake::getCurrentDirection() const
 {
-    return direction;
+    return currDirection;
 };
 
-void Snake::setDirection(sf::Keyboard::Key key)
+void Snake::setCurrentDirection(sf::Keyboard::Key key)
 {
+    // immediate straight turn should not happen
+    if (currDirection == UP and key == sf::Keyboard::Down || currDirection == DOWN and key == sf::Keyboard::Up ||
+        currDirection == RIGHT and key == sf::Keyboard::Left ||
+        currDirection == LEFT and key == sf::Keyboard::Right)
+    {
+        return;
+    }
+
+    // prevDirection = currDirection;
     switch (key)
     {
     case sf::Keyboard::Up:
-        direction = UP;
+        currDirection = UP;
         break;
     case sf::Keyboard::Down:
-        direction = DOWN;
+        currDirection = DOWN;
         break;
     case sf::Keyboard::Right:
-        direction = RIGHT;
+        currDirection = RIGHT;
         break;
     case sf::Keyboard::Left:
-        direction = LEFT;
+        currDirection = LEFT;
         break;
     }
 }
@@ -66,5 +76,39 @@ void Snake::renderSnake(sf::RenderWindow &window)
     for (int i = 0; i < length; i++)
     {
         window.draw(eachPart[i]);
+    }
+}
+// should be called after we update direction, so that moves in actual direction.
+void Snake::moveSnake()
+{
+    Direction dir = getCurrentDirection();
+    sf::Vector2f tempPos1 = head->getPosition();
+    switch (dir)
+    {
+    case UP:
+        head->setPosition(head->getPosition().x, head->getPosition().y - sizeOfEachPart.y);
+        break;
+
+    case DOWN:
+        head->setPosition(head->getPosition().x, head->getPosition().y + sizeOfEachPart.y);
+        break;
+
+    case RIGHT:
+        head->setPosition(head->getPosition().x + sizeOfEachPart.x, head->getPosition().y);
+        break;
+
+    case LEFT:
+        head->setPosition(head->getPosition().x - sizeOfEachPart.x, head->getPosition().y);
+        break;
+    }
+
+    // head = 0, which is done above so now looping from i = 1
+    for (int i = 1; i < length; i++)
+    {
+        sf::Vector2f tempPos2 = eachPart[i].getPosition();
+        eachPart[i].setPosition(tempPos1);
+        tempPos1 = tempPos2;
+        // TODO:temppos1 of last segment is vvi for the addition of a part
+        // after food is eaten.
     }
 }
