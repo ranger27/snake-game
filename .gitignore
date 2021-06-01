@@ -37,3 +37,6 @@
 #test file and its executable
 check.cpp
 check
+
+# game executable
+finalgame
