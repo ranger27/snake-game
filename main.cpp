@@ -46,7 +46,7 @@ int main()
         gameObj.player.renderSnake(window);
         if(gameObj.didPlayerEatFood(fruit)){
             // create a new food;
-            // fruit = food::Food(WINDOW_WIDTH, WINDOW_HEIGHT);
+            fruit = food::Food(WINDOW_WIDTH, WINDOW_HEIGHT);
         }
         
         window.display();

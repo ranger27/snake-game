@@ -14,7 +14,7 @@ sf::Vector2f Food::findALocation()
     return sf::Vector2f(int(Random::get(0, windowWidth - (int)size.x) / (float)size.x) * (size.x), int(Random::get(0, windowHeight - (int)size.y) / (float)size.y) * (size.y));
 }
 
-Food::Food(const int &windowWidth, const int &windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
+Food::Food(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
     createFood();
 }

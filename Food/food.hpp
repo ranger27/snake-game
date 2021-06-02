@@ -8,8 +8,8 @@ namespace food
 {
     class Food
     {
-        const int &windowWidth;
-        const int &windowHeight;
+        int windowWidth;
+        int windowHeight;
         // A part of the outside of the size should be invisible
         sf::Vector2u size = sf::Vector2u(40, 40);
 
@@ -33,7 +33,7 @@ namespace food
 
         // Creates a complete food, internally calls createFood and findALocation.
         // After creating food, calling renderFood is enough for its use
-        Food(const int &windowWidth, const int &windowHeight);
+        Food(int windowWidth, int windowHeight);
         ~Food() {}
         sf::Vector2u getSize() const;
         // used to just render the snake
