@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "./Game/game.hpp"
 #include "./Food/food.hpp"
 
@@ -8,12 +9,27 @@ const int WINDOW_HEIGHT = 800;
 
 int main()
 {
+    // loading music and font
 
-    game::Game gameObj(WINDOW_WIDTH, WINDOW_HEIGHT);
+    // font part
+    sf::Font font;
+    if (!font.loadFromFile("./assets/NotoSans-Regular.ttf"))
+    {
+        std::cout << "Font could not be loaded." << std::endl;
+        return -1;
+    }
+    // music part
+    sf::Music music;
+    if (!music.openFromFile("./assets/background-music.wav"))
+        return -1; // error
+    music.play();
+
+    game::Game gameObj(WINDOW_WIDTH, WINDOW_HEIGHT,font);
     food::Food fruit(WINDOW_WIDTH, WINDOW_HEIGHT);
     gameObj.player.makeInitialSnake();
 
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game");
+
     int counterToMove = 0;
     // disable multiple keypressed events.
     window.setKeyRepeatEnabled(false);
@@ -43,12 +59,14 @@ int main()
         }
         gameObj.player.moveSnake();
         fruit.renderFood(window);
+        gameObj.renderScore(window);
         gameObj.player.renderSnake(window);
-        if(gameObj.didPlayerEatFood(fruit)){
+        if (gameObj.didPlayerEatFood(fruit))
+        {
             // create a new food;
             fruit = food::Food(WINDOW_WIDTH, WINDOW_HEIGHT);
         }
-        
+
         window.display();
         counterToMove++;
     }

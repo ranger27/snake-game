@@ -6,7 +6,7 @@ SNAKE_FOLDER=./snake
 FOOD_FOLDER=./Food
 
 FLAGS=-std=c++11 
-SFML_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system
+SFML_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 $(EXEC): main.o game.o snake.o food.o
 	$(CC) main.o game.o snake.o food.o $(FLAGS) $(SFML_FLAGS) -o $(EXEC) 
