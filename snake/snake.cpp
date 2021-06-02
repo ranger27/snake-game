@@ -86,19 +86,48 @@ void Snake::moveSnake()
     switch (dir)
     {
     case UP:
-        head->setPosition(head->getPosition().x, head->getPosition().y - sizeOfEachPart.y);
+        if (head->getPosition().y - sizeOfEachPart.y < 0)
+        {
+            head->setPosition(head->getPosition().x, windowHeight - sizeOfEachPart.y);
+        }
+        else
+        {
+            head->setPosition(head->getPosition().x, head->getPosition().y - sizeOfEachPart.y);
+        }
+
         break;
 
     case DOWN:
-        head->setPosition(head->getPosition().x, head->getPosition().y + sizeOfEachPart.y);
+        if (head->getPosition().y + sizeOfEachPart.y >= windowHeight)
+        {
+            head->setPosition(head->getPosition().x, 0);
+        }
+        else
+        {
+            head->setPosition(head->getPosition().x, head->getPosition().y + sizeOfEachPart.y);
+        }
         break;
 
     case RIGHT:
-        head->setPosition(head->getPosition().x + sizeOfEachPart.x, head->getPosition().y);
+        if (head->getPosition().x + sizeOfEachPart.x >= windowWidth)
+        {
+            head->setPosition(0, head->getPosition().y);
+        }
+        else
+        {
+            head->setPosition(head->getPosition().x + sizeOfEachPart.x, head->getPosition().y);
+        }
         break;
 
     case LEFT:
-        head->setPosition(head->getPosition().x - sizeOfEachPart.x, head->getPosition().y);
+        if (head->getPosition().x - sizeOfEachPart.x < 0)
+        {
+            head->setPosition(windowWidth - sizeOfEachPart.x, head->getPosition().y);
+        }
+        else
+        {
+            head->setPosition(head->getPosition().x - sizeOfEachPart.x, head->getPosition().y);
+        }
         break;
     }
 
@@ -127,9 +156,9 @@ sf::Vector2u Snake::getSizeOfEachPart() const
 void Snake::increaseSnakeLength()
 {
     length += 1;
-    eachPart[length-1] = sf::RectangleShape(sf::Vector2f(sizeOfEachPart.x, sizeOfEachPart.y));
+    eachPart[length - 1] = sf::RectangleShape(sf::Vector2f(sizeOfEachPart.x, sizeOfEachPart.y));
 
-    eachPart[length-1].setFillColor(sf::Color::Magenta);
+    eachPart[length - 1].setFillColor(sf::Color::Magenta);
     // shifting new part to the left of the previous part initially.
-    eachPart[length-1].setPosition(posOfLastPart);
+    eachPart[length - 1].setPosition(posOfLastPart);
 }

@@ -4,7 +4,7 @@
 #include "./Game/game.hpp"
 #include "./Food/food.hpp"
 
-const int WINDOW_WIDTH = 1200;
+const int WINDOW_WIDTH = 1000;
 const int WINDOW_HEIGHT = 800;
 
 int main()
