@@ -63,7 +63,7 @@ bool Snake::makeInitialSnake()
     for (int i = 1; i < length; i++)
     {
         eachPart[i] = sf::RectangleShape(sf::Vector2f(sizeOfEachPart.x, sizeOfEachPart.y));
-        ;
+
         eachPart[i].setFillColor(sf::Color::Magenta);
         // shifting new part to the left of the previous part initially.
         eachPart[i].setPosition(eachPart[i - 1].getPosition().x - sizeOfEachPart.x, eachPart[i - 1].getPosition().y);
@@ -108,7 +108,28 @@ void Snake::moveSnake()
         sf::Vector2f tempPos2 = eachPart[i].getPosition();
         eachPart[i].setPosition(tempPos1);
         tempPos1 = tempPos2;
-        // TODO:temppos1 of last segment is vvi for the addition of a part
-        // after food is eaten.
     }
+    // TODO: Temppos1 of last segment is vvi for the addition of a part
+    // after food is eaten.
+    posOfLastPart = tempPos1;
+}
+
+sf::RectangleShape *Snake::getterOfHead() const
+{
+    return head;
+}
+
+sf::Vector2u Snake::getSizeOfEachPart() const
+{
+    return sizeOfEachPart;
+}
+// increaes the length of the snake after the food is eaten.
+void Snake::increaseSnakeLength()
+{
+    length += 1;
+    eachPart[length-1] = sf::RectangleShape(sf::Vector2f(sizeOfEachPart.x, sizeOfEachPart.y));
+
+    eachPart[length-1].setFillColor(sf::Color::Magenta);
+    // shifting new part to the left of the previous part initially.
+    eachPart[length-1].setPosition(posOfLastPart);
 }

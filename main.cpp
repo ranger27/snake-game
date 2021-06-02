@@ -19,7 +19,7 @@ int main()
     window.setKeyRepeatEnabled(false);
     while (window.isOpen())
     {
-        window.setFramerateLimit(20);
+        window.setFramerateLimit(8);
         sf::Event e;
         while (window.pollEvent(e))
         {
@@ -39,11 +39,16 @@ int main()
         window.clear();
         if (counterToMove >= 5)
         {
-            gameObj.player.moveSnake();
             counterToMove = 0;
         }
+        gameObj.player.moveSnake();
         fruit.renderFood(window);
         gameObj.player.renderSnake(window);
+        if(gameObj.didPlayerEatFood(fruit)){
+            // create a new food;
+            // fruit = food::Food(WINDOW_WIDTH, WINDOW_HEIGHT);
+        }
+        
         window.display();
         counterToMove++;
     }

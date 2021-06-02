@@ -16,10 +16,12 @@ namespace snake
         static const int maxLength;
         // size of each part of snake is 40*40
         sf::Vector2u sizeOfEachPart = sf::Vector2u(40, 40);
-        
+
         // every info of each part.
         sf::RectangleShape *eachPart;
+        
         // constant pointer/reference to the head of snake.
+        // also has every info of head.
         sf::RectangleShape *head;
         // width and height of window
         const int &windowWidth;
@@ -35,14 +37,23 @@ namespace snake
         //FIXME: may be delete this or use it
         Direction prevDirection;
 
+        // position of last segment of snake is imp to add a new part 
+        // after food eaten.
+        sf::Vector2f posOfLastPart;
+
     public:
         Snake(const int &windowWidth, const int &windowHeight);
         Direction getCurrentDirection() const;
+
+        sf::RectangleShape *getterOfHead() const;
+        sf::Vector2u getSizeOfEachPart() const;
         void setCurrentDirection(sf::Keyboard::Key key);
         bool makeInitialSnake();
-        void renderSnake(sf::RenderWindow & window);
+        void renderSnake(sf::RenderWindow &window);
         void moveSnake();
+        void increaseSnakeLength();
+
     };
-    
+
 }
 #endif
