@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "./Game/game.hpp"
+#include "./Food/food.hpp"
 
 const int WINDOW_WIDTH = 1200;
 const int WINDOW_HEIGHT = 800;
@@ -9,6 +10,7 @@ int main()
 {
 
     game::Game gameObj(WINDOW_WIDTH, WINDOW_HEIGHT);
+    food::Food fruit(WINDOW_WIDTH, WINDOW_HEIGHT);
     gameObj.player.makeInitialSnake();
 
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game");
@@ -17,7 +19,7 @@ int main()
     window.setKeyRepeatEnabled(false);
     while (window.isOpen())
     {
-        window.setFramerateLimit(80);
+        window.setFramerateLimit(20);
         sf::Event e;
         while (window.pollEvent(e))
         {
@@ -40,7 +42,7 @@ int main()
             gameObj.player.moveSnake();
             counterToMove = 0;
         }
-
+        fruit.renderFood(window);
         gameObj.player.renderSnake(window);
         window.display();
         counterToMove++;
