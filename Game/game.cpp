@@ -4,10 +4,10 @@
 
 using namespace game;
 
-Game::Game(const int &windowWidth, const int &windowHeight, sf::Font &font) : player(windowWidth, windowHeight)
+Game::Game(const int &windowWidth, const int &windowHeight, sf::Font &font) : player(windowWidth, windowHeight), windowWidth(windowWidth), windowHeight(windowHeight)
 {
     score = 0;
-    lives = 1;
+    // lives = 1 is made in Snake constructor.
     createScore(font);
 }
 
@@ -41,4 +41,23 @@ void Game::renderScore(sf::RenderWindow &window)
 {
     scoreText.setString("Score: " + std::to_string(score));
     window.draw(scoreText);
+}
+
+void Game::renderGameOverScreen(sf::RenderWindow &window,sf::Font& font)
+{
+    scoreText.setPosition(windowWidth / 2.0-100, windowHeight / 2.0 - 150);
+    scoreText.setCharacterSize(48);
+    scoreText.setString("Score: " + std::to_string(score));
+    window.draw(scoreText);
+
+    sf::Text gameOverText;
+    gameOverText.setFont(font);
+    gameOverText.setFillColor(sf::Color::Cyan);
+    // gameOverText.setOrigin(gameOverText.);
+    gameOverText.setPosition(windowWidth / 2.0 -220 , windowHeight / 2.0 );
+    gameOverText.setCharacterSize(64);
+    gameOverText.setString("!!! GAME OVER !!!");
+    window.draw(gameOverText);
+
+
 }

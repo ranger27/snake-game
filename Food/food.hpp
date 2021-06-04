@@ -19,7 +19,7 @@ namespace food
 
         // every info about food may be here except size,window info
         sf::RectangleShape food;
-
+        
         void createFood();
 
     public:

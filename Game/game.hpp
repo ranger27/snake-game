@@ -10,8 +10,9 @@ namespace game
     class Game
     {
         int score;
-        int lives;
         sf::Text scoreText;
+        const int &windowWidth;
+        const int &windowHeight;
 
     public:
         // FIXME: look if the player can be made private to restrict data
@@ -20,6 +21,7 @@ namespace game
         bool didPlayerEatFood(food::Food & );
         void createScore(sf::Font & font);
         void renderScore(sf::RenderWindow &window);
+        void renderGameOverScreen(sf::RenderWindow &window,sf::Font& font);
     };
 }
 

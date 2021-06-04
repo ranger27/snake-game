@@ -8,11 +8,13 @@ Snake::Snake(const int &windowWidth, const int &windowHeight) : windowWidth(wind
 {
     //FIXME: set length to 2 maybe at start.
     length = 2;
+    lives = 1;
     eachPart = new sf::RectangleShape[Snake::maxLength];
     head = eachPart;
     currDirection = RIGHT;
     // prevDirection = RIGHT;
 }
+
 
 Snake::Direction Snake::getCurrentDirection() const
 {
@@ -161,4 +163,21 @@ void Snake::increaseSnakeLength()
     eachPart[length - 1].setFillColor(sf::Color::Magenta);
     // shifting new part to the left of the previous part initially.
     eachPart[length - 1].setPosition(posOfLastPart);
+}
+
+bool Snake::didSnakeHitItself()
+{
+    // starting from i = 1 not i =0 because head has index = 0,
+    // and we do collision check of head with each part of body ,
+    // but not head with head
+    for (int i = 1; i < length; i++)
+    {
+        if ((getterOfHead()->getPosition().x < eachPart[i].getPosition().x + eachPart[i].getSize().x and eachPart[i].getPosition().x < getterOfHead()->getPosition().x + getSizeOfEachPart().x) and (getterOfHead()->getPosition().y < eachPart[i].getPosition().y + eachPart[i].getSize().y and eachPart[i].getPosition().y < getterOfHead()->getPosition().y + getSizeOfEachPart().y))
+        {
+            // code here means collision between snake head and a part of body.
+            lives = 0;
+            return true;
+        }
+    }
+    return false;
 }

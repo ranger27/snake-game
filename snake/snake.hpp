@@ -10,6 +10,8 @@ namespace snake
 {
     class Snake
     {
+        // lives of snake
+        int lives;
         // current length of snake including the head.
         int length;
         // this means the maximum length of snake can be 100.
@@ -43,6 +45,9 @@ namespace snake
 
     public:
         Snake(const int &windowWidth, const int &windowHeight);
+        ~Snake(){
+            delete[] eachPart;
+        }
         Direction getCurrentDirection() const;
 
         sf::RectangleShape *getterOfHead() const;
@@ -52,7 +57,7 @@ namespace snake
         void renderSnake(sf::RenderWindow &window);
         void moveSnake();
         void increaseSnakeLength();
-
+        bool didSnakeHitItself();
     };
 
 }
